@@ -34,7 +34,7 @@ app.post('/api/books', (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 });
 
-app.use('/api/books', (req, res, next) => {
+app.get('/api/books', (req, res, next) => {
   Book.find()
     .then((books) => res.status(200).json(books))
     .catch((error) => res.status(400).json({ error }));
