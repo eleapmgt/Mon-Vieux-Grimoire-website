@@ -11,10 +11,7 @@ exports.bestBooks = (req, res, next) => {
   Book.find()
     .sort({ averageRating: -1 })
     .limit(3)
-    .then((books) => {
-    console.log(books, 'books');
-    res.status(200).json(books);
-    })
+    .then(books => res.status(200).json(books))
     .catch(error => res.status(400).json({ error }));
 };
 
