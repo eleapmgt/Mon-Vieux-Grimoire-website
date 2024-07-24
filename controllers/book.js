@@ -65,3 +65,24 @@ exports.getAllBooks = (req, res, next) => {
     .then((books) => res.status(200).json(books))
     .catch((error) => res.status(400).json({ error }));
 };
+
+exports.rateBook = (req, res, next) => {
+  Book.findOne({ _id: req.params.id })
+    .then(book => {
+      if (book.ratings.some(rating => rating.userId === req.auth.userId)) {
+        return res.status(400).json({ message: 'Vous avez déjà noté ce livre' });
+      };
+
+      const newRating = {
+        userId: req.auth.userId,
+        grade: req.body.rating
+      };
+
+      book.ratings.push(newRating);
+
+      book.save()
+        .then(() => res.status(200).json(book))
+        .catch(error => res.status(500).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }));
+};
