@@ -79,6 +79,13 @@ exports.rateBook = (req, res, next) => {
       };
 
       book.ratings.push(newRating);
+      console.log(book.ratings);
+
+      const sumOfGrades = book.ratings.reduce((acc, currentValue) => acc + currentValue.grade, 0);
+      const nbOfRatings = book.ratings.length;
+      console.log(nbOfRatings, 'numberOfRatings')
+
+      book.averageRating = sumOfGrades / nbOfRatings;
 
       book.save()
         .then(() => res.status(200).json(book))
