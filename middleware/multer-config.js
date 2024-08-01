@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
     }
 
     const { buffer, originalname } = req.file;
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '');
     const ref = `${timestamp}-${originalname}.webp`;
     const path = "./images/" + ref;
 

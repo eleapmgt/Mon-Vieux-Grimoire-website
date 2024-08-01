@@ -93,7 +93,7 @@ exports.rateBook = (req, res, next) => {
       const nbOfRatings = book.ratings.length;
       console.log(nbOfRatings, 'numberOfRatings')
 
-      book.averageRating = sumOfGrades / nbOfRatings;
+      book.averageRating = parseFloat((sumOfGrades / nbOfRatings).toFixed(1));
 
       book.save()
         .then(() => res.status(200).json(book))
